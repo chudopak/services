@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+ nginx:
+  build:
+   context: requirements/nginx
+   dockerfile: Dockerfile
+   #args:
+   # ALPINE_VERSION: ${ALPINE_VERSION}
+   # NGINX_VERSION: ${NGINX_VERSION}
+  image: nginx:inception
+  container_name: nginx
+  restart: always
+  ports:
+   - "80:80"
