@@ -17,8 +17,7 @@ kill:
 	cd ./srcs/; \
 	docker-compose stop \
 
-clear:
-	docker rm ${NGINX}
+clean: iclean
 
 fclean:
 	docker rmi ${NGINX}
