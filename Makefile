@@ -13,6 +13,7 @@ down	: ## Remove services
 
 iclean	: ## Remove docker images
 		  -docker rmi -f nginx:inception
+		  -docker rmi -f wordpress:inception
 kill:
 	cd ./srcs/; \
 	docker-compose stop \

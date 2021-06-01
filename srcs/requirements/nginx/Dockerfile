@@ -1,7 +1,6 @@
 FROM	debian:buster
 
-RUN apt-get update --yes && apt-get --yes install wget \
-												  nginx \
+RUN apt-get update --yes && apt-get --yes install nginx \
 												  openssl \
 												  vim
 
@@ -9,11 +8,7 @@ COPY	./configs/nginx.conf /etc/nginx/
 
 COPY	./configs/nginx.conf /etc/nginx/sites-available/
 
-#COPY	./configs/nginx.sh /var/www/html/
-
 COPY	./configs/index.html /var/www/html/
-
-#RUN		chmod +x /var/www/html/nginx.sh
 
 RUN		ln -s /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/
 
@@ -24,8 +19,6 @@ RUN		openssl req -x509 -nodes -days 365 -newkey rsa:4096 \
 		-out /etc/nginx/ssl/pmarash.crt
 
 #ENTRYPOINT [ "/var/www/html/nginx.sh" ]
-
-#EXPOSE 80
 
 EXPOSE 443
 

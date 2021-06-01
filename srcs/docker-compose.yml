@@ -6,15 +6,21 @@ networks:
         driver: bridge
 
 services:
+    wordpress:
+        build: ./requirements/wordpress/
+        image: wordpress:inception
+        container_name: wordpress
+        env_file: .env
+        restart: always
+        networks:
+            - inception
     nginx:
         build: ./requirements/nginx/
-        #    context: ./requirements/nginx/
-        #    dockerfile: Dockerfile
-   #args:
-   # ALPINE_VERSION: ${ALPINE_VERSION}
-   # NGINX_VERSION: ${NGINX_VERSION}
         image: nginx:inception
         container_name: nginx
+        env_file: .env
+        depends_on:
+            - wordpress
         ports:
             - 443:443
             #- 80:80
