@@ -19,6 +19,8 @@ services:
         image: nginx:inception
         container_name: nginx
         env_file: .env
+        extra_hosts: 
+            - ${LOGIN}.42.fr:127.0.0.1
         depends_on:
             - wordpress
         ports:

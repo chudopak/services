@@ -1,6 +1,14 @@
 FROM	debian:buster
 
 RUN apt-get update --yes && apt-get --yes install nginx \
+												  #php-fpm \
+												  #php-common \
+												  #php-mysql \
+												  #php-xml \
+												  #php-mbstring \
+												  #php-curl \
+												  #php-gd \
+												  #php-cli \
 												  openssl \
 												  vim
 
