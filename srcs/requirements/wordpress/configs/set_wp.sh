@@ -8,14 +8,19 @@ curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.pha
 chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
-# Wordpress installation
+# Create dir for PID php-fpm7.3
+mkdir /var/run/php && chmod 755 /var/run/php
+
+# Wordpress installation --url=${LOGIN}.42.fr
 wp core install --path=/var/www/wordpress \
-	--title=Inception --url=${LOGIN}.42.fr \
+	--title=Inception --url=localhost \
 	--admin_user=${WP_ADMIN} --admin_password=${WP_ADMIN_PASSWORD} \
     --admin_email=${WP_ADMIN_EMAIL} --skip-email
 
 wp user create --path=/var/www/wordpress ${WP_USER} ${WP_USER_EMAIL} \
     --user_pass=${WP_USER_PASSWORD}
 
+# Start 
+/usr/sbin/php-fpm7.3 --nodaemonize
 #/usr/sbin/php-fpm7.3 -F
-exec "$@"
+#exec "$@"
