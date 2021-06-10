@@ -1,4 +1,3 @@
-NGINX = nginx
 DOCKER_COMPOSE		= docker-compose --project-directory srcs \
 						-f srcs/docker-compose.yml
 
@@ -14,13 +13,16 @@ down	: ## Remove services
 iclean	: ## Remove docker images
 		  -docker rmi -f nginx:inception
 		  -docker rmi -f wordpress:inception
-kill:
-	cd ./srcs/; \
-	docker-compose stop \
+		  -docker rmi -f mariadb:inception
+
+volumes:
+		  cd ../volumes/ ; \
+		  rm -rf db/* ; \
+		  rm -rf wp/*
 
 clean: iclean
 
 fclean:
 	docker rmi ${NGINX}
 
-re: fclean set
+re: clean volumes up

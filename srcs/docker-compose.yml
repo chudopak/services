@@ -1,4 +1,20 @@
-version: '3'
+version: '3.7'
+
+volumes:
+    wp:
+        driver: local
+        name: wordpress
+        driver_opts:
+            type: none
+            o: bind
+            device: /Users/chudapak/code/42/Inception/volumes/wp
+    db:
+        driver: local
+        name: db
+        driver_opts:
+            type: none
+            o: bind
+            device: /Users/chudapak/code/42/Inception/volumes/db
 
 networks:
     inception:
@@ -6,26 +22,50 @@ networks:
         driver: bridge
 
 services:
+    mariadb:
+        image: mariadb:inception
+        env_file: .env
+        volumes:
+            - db:/var/lib/mysql
+        restart: always
+        build:
+            context: ./requirements/mariadb/
+            args:
+                MYSQL_DATABASE: ${MYSQL_DATABASE}
+                MYSQL_USER: ${MYSQL_USER}
+                MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+                MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        networks:
+            - inception
+        container_name: mariadb
+        user: root
     wordpress:
         build: ./requirements/wordpress/
         image: wordpress:inception
         container_name: wordpress
+        #extra_hosts: 
+        #    - ${LOGIN}.42.fr:127.0.0.1
+        depends_on:
+            - mariadb
         env_file: .env
+        volumes:
+            - wp:/var/www/html #all files in this directory will be saved
         restart: always
         networks:
             - inception
+        user: root
     nginx:
-        build: ./requirements/nginx/
         image: nginx:inception
+        build: ./requirements/nginx/
         container_name: nginx
         env_file: .env
-        extra_hosts: 
-            - ${LOGIN}.42.fr:127.0.0.1
+        #extra_hosts: 
+        #    - ${LOGIN}.42.fr:127.0.0.1
         depends_on:
             - wordpress
         ports:
-            - 443:443
-            #- 80:80
+            - "443:443"
         restart: always
         networks:
             - inception
+        user: root
