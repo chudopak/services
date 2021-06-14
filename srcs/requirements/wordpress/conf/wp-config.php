@@ -46,15 +46,14 @@ define( 'DB_COLLATE', '' );
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         '}-=-l`+G>(zt)o_!+<CENYwI9fQS@gDoxB&xP#hIm6X&eIjm8..IcfHcu%gOGOp8');
-define('SECURE_AUTH_KEY',  '!+MR-p}]&&91V+C}LtCqZ4q(6-o4>AZW*! FWNLOU:gnaIj6$V,sV;bV>inOQpHT');
-define('LOGGED_IN_KEY',    'PdSWn@2qgicG|qd2|L}Y-{U{sI:Ewtm*D)BnKF#VT|Z$--5y.+AC3|>w&WjCA-S7');
-define('NONCE_KEY',        '3Ojyead8_ XRsamGN%)]$+nZUR-I2!su#xx.1>Yrk(V)2a#:j&Db LrqQ]C)qVCX');
-define('AUTH_SALT',        'NDlzjU?2LN-j80Bqgp88frMV7!DCo$yDQK-N0BmHWrb<dt8,P%p,+4T! -+AEN+1');
-define('SECURE_AUTH_SALT', 'dns rt&=|1[FiS_5@W@si5!k-LX~EYBW<-=[K%qVn$2u]2p~qUJ4c.aRm4FnZS<;');
-define('LOGGED_IN_SALT',   'u_W$=31.yf3OM}^J-3~xq[D&VjI=k6U#66, @uqB|3wTa;yt +$6Yip]mNQ$$Wbz');
-define('NONCE_SALT',       '^-&R76|).8JLQw3:g#^_nqTvmBN-),;nhx2 |>W8ofI#`g.>YF6`(r0xJeOWlYjn');
-/**#@-*/
+define('AUTH_KEY',         '/Li6`<(/cYE*p1k1#@+9xOpH1WcLF2]jA-Bhl2+&:~en%6<mX .<J=PEU(do]r@T');
+define('SECURE_AUTH_KEY',  'HDHa8827<6}VHUJY#Cjd*yY00ti5#.3ev+>sbUj=9Z1}=~m0`4YvRwoh-5$pn#Y:');
+define('LOGGED_IN_KEY',    'h2_+I~H:wT{v:+cyk?In(_wNKn~tNw|V}#ByLh)YfdTuhtZtdh|^>qrx+3eYkaRg');
+define('NONCE_KEY',        'mX +[vxO195zWe.st,s$3[!1Z-ixU+fAE?MxCXRXoM{:+aSd.Zw*#jvY5|J6?@f/');
+define('AUTH_SALT',        'ol0TW$_W[VjtlXi-*iV0+-vI.`O*6#.8v:_n_ SNmT/8+kInuffM@P/)YD|D0`Y;');
+define('SECURE_AUTH_SALT', 'xM]LHxF:+8yuI4{[H;`Wv@V>|0mV!|(l=pLN4w!/$S|z)iJ%O`yyU{9m]7YFQ!$$');
+define('LOGGED_IN_SALT',   'B^-yZfvc+^U~5EONI$RR-#J@WL~1o>O am+<(&bam+uw~2ieXb|l?OJ Ajp wEV{');
+define('NONCE_SALT',       'e/9-G|ffWzJiwswY.V`;rn36Ouah?2b 5bEbvKF96zIfZtan_M$erE .)0Ex^n5?');
 
 /**
  * WordPress Database Table prefix.
@@ -77,6 +76,17 @@ $table_prefix = 'wp_';
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
 define( 'WP_DEBUG', false );
+
+#$isSecure = false;
+#if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+#    $isSecure = true;
+#}
+#elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
+#    $isSecure = true;
+#}
+#$REQUEST_PROTOCOL = $isSecure ? 'https://' : 'http://';
+#define( 'WP_CONTENT_URL', $REQUEST_PROTOCOL.$_SERVER['HTTP_HOST'] . '/wp-content');
+#define( 'WP_HOME', $REQUEST_PROTOCOL.$_SERVER['HTTP_HOST'] );
 
 /* That's all, stop editing! Happy publishing. */
 

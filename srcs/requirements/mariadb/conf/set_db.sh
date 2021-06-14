@@ -14,11 +14,6 @@ if [ ! -d var/lib/mysql/wp_db ]; then
 	mysql -u root -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%'"
 	mysql -u root -e "FLUSH PRIVILEGES"
 
-	#mysql -u root -e "CREATE DATABASE IF NOT EXISTS wp_db"
-	#mysql -u root -e "CREATE USER IF NOT EXISTS 'pmarash'@'%' IDENTIFIED BY 'biba'"
-	#mysql -u root -e "GRANT ALL PRIVILEGES ON wp_db.* TO 'pmarash'@'%'"
-	#mysql -u root -e "FLUSH PRIVILEGES"
-
 	mysqladmin -u root password boba
 
 	service mysql stop

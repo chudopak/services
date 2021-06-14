@@ -15,14 +15,19 @@ iclean	: ## Remove docker images
 		  -docker rmi -f wordpress:inception
 		  -docker rmi -f mariadb:inception
 
-volumes:
+volume_wp:
 		  cd ../volumes/ ; \
-		  rm -rf db/* ; \
 		  rm -rf wp/*
+
+volume_db:
+		  cd ../volumes/ ; \
+		  rm -rf db/*
+
+volumes: volume_db volume_wp
 
 clean: iclean
 
 fclean:
 	docker rmi ${NGINX}
 
-re: clean volumes up
+re: clean  up
