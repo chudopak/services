@@ -13,4 +13,3 @@ RUN			chmod 755 /var/www/set_nginx.sh
 ENTRYPOINT	[ "/var/www/set_nginx.sh" ]
 
 CMD			[ "nginx", "-g", "daemon off;" ]
-#CMD [ "bash" ]

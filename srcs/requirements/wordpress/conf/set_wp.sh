@@ -7,7 +7,6 @@ mkdir -p /run/php/
 touch /run/php/php7.3-fpm.pid
 chown -R www-data:www-data /var/www/*
 chmod -R 755 /var/www/*
-#mv /var/www/index.html /var/www/html
 
 if [ ! -f /var/www/html/wp* ]
 then

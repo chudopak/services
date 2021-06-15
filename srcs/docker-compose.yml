@@ -1,20 +1,4 @@
-version: '3.7'
-
-volumes:
-    wp:
-        driver: local
-        name: wordpress
-        driver_opts:
-            type: none
-            o: bind
-            device: /Users/chudapak/code/42/Inception/volumes/wp
-    db:
-        driver: local
-        name: db
-        driver_opts:
-            type: none
-            o: bind
-            device: /Users/chudapak/code/42/Inception/volumes/db
+version: '3'
 
 networks:
     inception:
@@ -28,13 +12,7 @@ services:
         volumes:
             - db:/var/lib/mysql
         restart: always
-        build:
-            context: ./requirements/mariadb/
-            args:
-                MYSQL_DATABASE: ${MYSQL_DATABASE}
-                MYSQL_USER: ${MYSQL_USER}
-                MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-                MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        build: ./requirements/mariadb/
         networks:
             - inception
         container_name: mariadb
@@ -43,13 +21,11 @@ services:
         build: ./requirements/wordpress/
         image: wordpress:inception
         container_name: wordpress
-        #extra_hosts: 
-        #    - ${LOGIN}.42.fr:127.0.0.1
         depends_on:
             - mariadb
         env_file: .env
         volumes:
-            - wp:/var/www/html #all files in this directory will be saved
+            - wp:/var/www/html
         restart: always
         networks:
             - inception
@@ -59,8 +35,8 @@ services:
         build: ./requirements/nginx/
         container_name: nginx
         env_file: .env
-        #extra_hosts: 
-        #    - ${LOGIN}.42.fr:127.0.0.1
+        volumes:
+            - wp:/var/www/html
         depends_on:
             - wordpress
         ports:
@@ -69,3 +45,20 @@ services:
         networks:
             - inception
         user: root
+
+
+volumes:
+    wp:
+        driver: local
+        name: wordpress
+        driver_opts:
+            type: none
+            o: bind
+            device: /Users/chudapak/code/42/Inception/volumes/wp
+    db:
+        driver: local
+        name: mariadb
+        driver_opts:
+            type: none
+            o: bind
+            device: /Users/chudapak/code/42/Inception/volumes/db

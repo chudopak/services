@@ -1,33 +1,58 @@
 DOCKER_COMPOSE		= docker-compose --project-directory srcs \
 						-f srcs/docker-compose.yml
 
-build	: ## Build the project with docker-compose
-		  $(DOCKER_COMPOSE) build 
 
-up		: ## Starts services containers
-		  $(DOCKER_COMPOSE) up -d
+TABS				= \t\t\t\t
+NEW_LINE			= \n
+LIGHT_PURPLE		= \033[1;35m
+NC					= \033[0m
 
-down	: ## Remove services
-		  $(DOCKER_COMPOSE) down
+# Build the inception with docker-compose
+build	:
+		  @$(DOCKER_COMPOSE) build 
 
-iclean	: ## Remove docker images
-		  -docker rmi -f nginx:inception
-		  -docker rmi -f wordpress:inception
-		  -docker rmi -f mariadb:inception
+# Starts services containers
+up		:
+		  @echo "$(TABS)$(LIGHT_PURPLE)BUILD & START CONTAINERS$(NC)$(NEW_LINE)"
+		  @$(DOCKER_COMPOSE) up -d
 
-volume_wp:
-		  cd ../volumes/ ; \
-		  rm -rf wp/*
+# Remove services
+down	:
+		  @echo "$(TABS)$(LIGHT_PURPLE)STOP & DELETE CONTAINERS$(NC)$(NEW_LINE)"
+		  @$(DOCKER_COMPOSE) down
 
-volume_db:
-		  cd ../volumes/ ; \
-		  rm -rf db/*
+# Show services
+ps		:
+		  @$(DOCKER_COMPOSE) ps
 
-volumes: volume_db volume_wp
+# Remove docker images
+iclean	:
+		  @echo "$(TABS)$(LIGHT_PURPLE)DELETE IMAGES$(NC)$(NEW_LINE)"
+		  @-docker rmi -f debian:buster
+		  @-docker rmi -f nginx:inception
+		  @-docker rmi -f wordpress:inception
+		  @-docker rmi -f mariadb:inception
 
-clean: iclean
+# Remove volumes
+vclean	:
+		  @echo "$(TABS)$(LIGHT_PURPLE)DELETE VOLUMES$(NC)$(NEW_LINE)"
+		  @-docker volume rm wordpress
+		  @-docker volume rm mariadb
 
-fclean:
-	docker rmi ${NGINX}
+# Remove wordpress data
+f_wp_clean:
+		  @echo "$(TABS)$(LIGHT_PURPLE)DELETE WORDPRESS FILES$(NC)$(NEW_LINE)"
+		  @rm -rf ../volumes/wp/*
 
-re: clean  up
+# Remove database data
+f_db_clean:
+		  @echo "$(TABS)$(LIGHT_PURPLE)DELETE DATABASE FILES$(NC)$(NEW_LINE)"
+		  @rm -rf ../volumes/db/*
+
+f_clean	: f_db_clean f_wp_clean
+
+volumes	: volume_db volume_wp
+
+clean	: iclean vclean
+
+re		: clean up
