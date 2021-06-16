@@ -42,12 +42,12 @@ vclean	:
 # Remove wordpress data
 f_wp_clean:
 		  @echo "$(TABS)$(LIGHT_PURPLE)DELETE WORDPRESS FILES$(NC)$(NEW_LINE)"
-		  @rm -rf ../volumes/wp/*
+		  @rm -rf /home/pmarash/data/wp/*
 
 # Remove database data
 f_db_clean:
 		  @echo "$(TABS)$(LIGHT_PURPLE)DELETE DATABASE FILES$(NC)$(NEW_LINE)"
-		  @rm -rf ../volumes/db/*
+		  @rm -rf /home/pmarash/data/db/*
 
 f_clean	: f_db_clean f_wp_clean
 

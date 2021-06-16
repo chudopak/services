@@ -3,8 +3,11 @@
 mkdir /etc/nginx/ssl
 
 mv /var/www/openssl.cnf /etc/ssl/openssl.cnf
-mkdir -p /var/www/ghost && mv /var/www/index.html /var/www/ghost
 
+if [ ! -f /var/www/html/index.html ]
+then
+mv /var/www/index.html /var/www/html
+fi
 
 openssl req -config /etc/ssl/openssl.cnf \
 -new -sha256 -newkey rsa:2048 -nodes -keyout /etc/nginx/ssl/pmarash.key \

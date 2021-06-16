@@ -54,11 +54,11 @@ volumes:
         driver_opts:
             type: none
             o: bind
-            device: /Users/chudapak/code/42/Inception/volumes/wp
+            device: /home/pmarash/data/wp
     db:
         driver: local
         name: mariadb
         driver_opts:
             type: none
             o: bind
-            device: /Users/chudapak/code/42/Inception/volumes/db
+            device: /home/pmarash/data/db
