@@ -53,6 +53,6 @@ f_clean	: f_db_clean f_wp_clean
 
 volumes	: volume_db volume_wp
 
-clean	: nclean iclean vclean
+clean	: iclean vclean
 
 re		: clean up
