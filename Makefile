@@ -39,12 +39,6 @@ vclean	:
 		  @-docker volume rm wordpress
 		  @-docker volume rm mariadb
 
-# Remove network
-nclean	:
-		  @echo "$(TABS)$(LIGHT_PURPLE)DELELTE NETWORK$(NC)$(NEW_LINE)"
-		  @-docker network rm inception
-
-
 # Remove wordpress data
 f_wp_clean:
 		  @echo "$(TABS)$(LIGHT_PURPLE)DELETE WORDPRESS FILES$(NC)$(NEW_LINE)"
