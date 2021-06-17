@@ -54,11 +54,11 @@ volumes:
         driver_opts:
             type: none
             o: bind
-            device: /home/pmarash/data/wp
+            device: /home/${LOGIN}/data/wp
     db:
         driver: local
         name: mariadb
         driver_opts:
             type: none
             o: bind
-            device: /home/pmarash/data/db
+            device: /home/${LOGIN}/data/db
